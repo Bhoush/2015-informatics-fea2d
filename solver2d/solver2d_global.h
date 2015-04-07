@@ -1,0 +1,12 @@
+#ifndef SOLVER2D_GLOBAL_H
+#define SOLVER2D_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(SOLVER2D_LIBRARY)
+#  define SOLVER2DSHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define SOLVER2DSHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // SOLVER2D_GLOBAL_H
