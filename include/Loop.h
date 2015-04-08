@@ -12,7 +12,7 @@ public:
     typedef Line<X,n> L;
     enum { dim = n };
     L edge(int i) const {
-        return L((*this)[i], (*this)[(i+1)%size()]);
+        return L((*this)[i], (*this)[(i+1)%this->size()]);
     }
     Loop<X,n>& operator<<(const V& v) {
         QVector< V >::operator <<(v);

@@ -15,53 +15,53 @@ public:
     enum { dim = n };
     Vertex() {}
     explicit Vertex(const X* data) {
-        std::copy(data, data+n, begin());
+        std::copy(data, data+n, this->begin());
     }
     ThisClass operator+(const ThisClass& r) const {
         ThisClass result;
-        std::transform(begin(), end(), r.begin(), result.begin(), std::plus<X>());
+        std::transform(this->begin(), this->end(), r.begin(), result.begin(), std::plus<X>());
         return result;
     }
     ThisClass operator-(const ThisClass& r) const {
         ThisClass result;
-        std::transform(begin(), end(), r.begin(), result.begin(), std::minus<X>());
+        std::transform(this->begin(), this->end(), r.begin(), result.begin(), std::minus<X>());
         return result;
     }
     ThisClass operator-() const {
         ThisClass result;
-        std::transform(begin(), end(), result.begin(), [](const X& c){ return -c; });
+        std::transform(this->begin(), this->end(), result.begin(), [](const X& c){ return -c; });
         return result;
     }
     X operator*(const ThisClass& r) const {
-        return std::inner_product(begin(), end(), r.begin(), X());
+        return std::inner_product(this->begin(), this->end(), r.begin(), X());
     }
 
     ThisClass& operator+=(const ThisClass& r) {
-        std::transform(begin(), end(), r.begin(), begin(), std::plus<X>());
+        std::transform(this->begin(), this->end(), r.begin(), this->begin(), std::plus<X>());
         return *this;
     }
     ThisClass operator-=(const ThisClass& r) {
-        std::transform(begin(), end(), r.begin(), begin(), std::minus<X>());
+        std::transform(this->begin(), this->end(), r.begin(), this->begin(), std::minus<X>());
         return *this;
     }
     ThisClass operator*=(const X& x) {
-        std::transform(begin(), end(), begin(), [&x](const X& c){ return c*x; });
+        std::transform(this->begin(), this->end(), this->begin(), [&x](const X& c){ return c*x; });
         return *this;
     }
     ThisClass operator/=(const X& x) {
-        std::transform(begin(), end(), begin(), [&x](const X& c){ return c/x; });
+        std::transform(this->begin(), this->end(), this->begin(), [&x](const X& c){ return c/x; });
         return *this;
     }
     ThisClass operator*(const X& x)
     {
         Vertex<X,n> result;
-        std::transform(begin(), end(), result.begin(), [&x](const X& c){ return c*x; });
+        std::transform(this->begin(), this->end(), result.begin(), [&x](const X& c){ return c*x; });
         return result;
     }
     ThisClass operator/(const X& x)
     {
         Vertex<X,n> result;
-        std::transform(begin(), end(), result.begin(), [&x](const X& c){ return c/x; });
+        std::transform(this->begin(), this->end(), result.begin(), [&x](const X& c){ return c/x; });
         return result;
     }
 };
