@@ -13,10 +13,12 @@ TEMPLATE = lib
 
 DEFINES += SOLVER2D_LIBRARY
 
-SOURCES += solver2d.cpp
+SOURCES += \
+    Solver2d.cpp
 
-HEADERS += solver2d.h\
-        solver2d_global.h
+HEADERS +=\
+        solver2d_global.h \
+    Solver2d.h
 
 unix {
     target.path = /usr/lib

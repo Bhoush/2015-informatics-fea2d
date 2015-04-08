@@ -11,7 +11,7 @@ public:
     typedef Vertex<X,n> V;
     typedef Line<X,n> L;
     enum { dim = n };
-    L line(int i) const {
+    L edge(int i) const {
         return L((*this)[i], (*this)[(i+1)%size()]);
     }
     Loop<X,n>& operator<<(const V& v) {

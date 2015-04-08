@@ -1,43 +1,44 @@
-#include "meshgen2d.h"
-#include "Vertex.h"
-//#include "Line.h"
-//#include "Triangle.h"
-//#include "format_array.h"
-#include "IndexLine.h"
-#include "IndexTriangle.h"
-#include "Loop.h"
-#include "IndexLoop.h"
-#include <QTextStream>
+#include "MeshGen2d.h"
+#include "NodeGenerator.h"
+#include "ElementGenerator.h"
 
-QTextStream cout(stdout);
+class MeshGen2d::Impl
+{
+public:
+    explicit Impl(const MeshGenInput& inputData) : m_inputData(inputData) {}
+    TriangleMesh2d run()
+    {
+        TriangleMesh2d result;
+        NodeGenerator ng(m_inputData);
+        result.nodes() = ng.generateNodes();
+        ElementGenerator eg(m_inputData, result.nodes());
+        result.elements() = eg.generateElements();
+        return result;
+    }
 
-void MESHGEN2DSHARED_EXPORT f() {
-    V2d v1(1,2);
-    V2d v2(4,31);
-    cout << 2.*(v1+v2) << endl;
-    Line2d line = {v1, v2};
-    cout << line << endl;
-    cout << Triangle2d(v1, v2, v2) << endl;
-    cout << IndexLine(1,2) << endl;
-    cout << IndexTriangle(1,2,3) << endl;
-    Loop2d loop;
-    loop << V2d(1,2) << V2d(3,4);
-    cout << loop << endl;
-    cout << loop[0] << endl;
-    cout << loop.line(0) << endl;
-    cout << loop.line(1) << endl;
-    cout << endl;
-    IndexLoop iloop;
-    iloop << 1 << 2 << 3 << 4 << 5;
-    cout << iloop << endl;
-    cout << iloop[0] << endl;
-    cout << iloop.line(0) << endl;
-    cout << iloop.line(1) << endl;
-    cout << endl;
+private:
+    const MeshGenInput& m_inputData;
+};
+
+
+const MeshGenInput& MeshGen2d::inputData() const {
+    return m_inputData;
 }
 
-//struct _{_(){f();}}__;
+void MeshGen2d::setInputData(const MeshGenInput& inputData)
+{
+    m_inputData = inputData;
 
-Meshgen2d::Meshgen2d()
-    {
+    // Clear cache
+    m_cachedMesh.clear();
+}
+
+const TriangleMesh2d& MeshGen2d::mesh() const
+{
+    if (m_cachedMesh.isEmpty()) {
+        // No cached mesh, generate
+        Impl impl(m_inputData);
+        m_cachedMesh = impl.run();
     }
+    return m_cachedMesh;
+}

@@ -6,7 +6,7 @@
 
 !include("../fea2d.pri") { error("Failed to include ../fea2d.pri") }
 
-QT       += core gui
+QT       += core gui xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -15,10 +15,15 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+    Document.cpp \
+    Visualizer2d.cpp \
+    MainWindow.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += \
+    Document.h \
+    Visualizer2d.h \
+    MainWindow.h
 
 FORMS    += mainwindow.ui
 
-LIBS += -lmeshgen2d -lsolver2d -lvisualizer2d
+LIBS += -lmeshgen2d -lsolver2d

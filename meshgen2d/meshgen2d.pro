@@ -13,10 +13,16 @@ TEMPLATE = lib
 
 DEFINES += MESHGEN2D_LIBRARY
 
-SOURCES += meshgen2d.cpp
+SOURCES += \
+    NodeGenerator.cpp \
+    MeshGen2d.cpp \
+    ElementGenerator.cpp
 
-HEADERS += meshgen2d.h\
-        meshgen2d_global.h
+HEADERS +=\
+        meshgen2d_global.h \
+    MeshGen2d.h \
+    NodeGenerator.h \
+    ElementGenerator.h
 
 unix {
     target.path = /usr/lib
